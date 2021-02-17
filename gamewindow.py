@@ -8,7 +8,7 @@ init()
 class Window:
     def __init__(self):
         terminal_dimentions = os.get_terminal_size()
-        self.height = terminal_dimentions.lines -1
+        self.height = terminal_dimentions.lines - 2
         self.width = terminal_dimentions.columns
         self.ball = None
         self.paddle = None
@@ -109,7 +109,22 @@ class Window:
         x,y = Item.getloc()
         width, height = Item.getpaddledetails()
         j = self.height - 5
+        if x + width > self.width - 3 :
+            Item.setloc(self.width - width - 3, y)
+            x,y = Item.getloc()
+        if x < 3 :
+            Item.setloc(3, y)
+            x,y = Item.getloc()
+            
         for i in range(0,width,1):            
             self.Board[j][x + i] = Item
+            
+    def addballtoboard(self, Item):
+        x,y = Item.getloc()
+        self.Board[y][x] = Item
+        
+        
+    def getboard(self):
+        return self.Board
         
         
