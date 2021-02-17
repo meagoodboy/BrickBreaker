@@ -23,7 +23,7 @@ class manageinput:
         if char == ' ':
             char = 's'
         if char in self.accepted_inputs:
-            print(char)
-            self.returninput = char
+            self.returninput = char.lower()
+            # print(self.returninput)
         else:
             self.returninput = ''

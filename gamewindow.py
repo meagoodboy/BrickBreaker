@@ -13,60 +13,81 @@ class Window:
         self.ball = None
         self.paddle = None
         
+    def getwindowcor(self):
+        return self.width, self.height
+        
     def initgameborder(self):
         self.Board = [[None for j in range(self.width)] for i in range(self.height)]
+        
+        sides = Objects(0,0,0,0,'┃',Fore.BLUE)
+        upleft = Objects(0,0,0,0,'┏',Fore.BLUE)
+        upright = Objects(0,0,0,0,'┓',Fore.BLUE)
+        updown = Objects(0,0,0,0,'━',Fore.BLUE)
+        downleft = Objects(0,0,0,0,'┗',Fore.BLUE)
+        downright = Objects(0,0,0,0,'┛',Fore.BLUE)
+        stars = Objects(0,0,0,0,'*',Fore.RED)
+        
+        
+        
         for i in range(self.height):
             for j in range(self.width):
                 if j == 0 or j == self.width - 1 or j == 2 or j == self.width - 3:
-                    self.Board[i][j] = '┃'
+                    self.Board[i][j] = sides
 
                 if i == 0:
                     if j == 0:
-                        self.Board[i][j] = '┏'
+                        self.Board[i][j] = upleft
                     elif j == self.width - 1:
-                        self.Board[i][j] = '┓'
+                        self.Board[i][j] = upright
                     else:
-                        self.Board[i][j] = '━'
+                        self.Board[i][j] = updown
 
                 if i == self.height - 1:
                     if j == 0:
-                        self.Board[i][j] = '┗'
+                        self.Board[i][j] = downleft
                     elif j == self.width - 1:
-                        self.Board[i][j] = '┛'
+                        self.Board[i][j] = downright
                     else:
-                        self.Board[i][j] = '━'
+                        self.Board[i][j] = updown
                         
                 if i == 1:
                     if j == 2:
-                        self.Board[i][j] = '┏'
+                        self.Board[i][j] = upleft
                     elif j == self.width - 3:
-                        self.Board[i][j] = '┓'
+                        self.Board[i][j] = upright
                     elif j == 1 or j == self.width-2:
                         pass
                     elif j == 0 or j == self.width -1:
                         pass
                     else:
-                        self.Board[i][j] = '━'
+                        self.Board[i][j] = updown
                         
                 if i == self.height - 2:
                     if j == 2:
-                        self.Board[i][j] = '┗'
+                        self.Board[i][j] = downleft
                     elif j == self.width - 3:
-                        self.Board[i][j] = '┛'
+                        self.Board[i][j] = downright
                     elif j == 1 or j == self.width-2:
                         pass
                     elif j == 0 or j == self.width -1:
                         pass
                     else:
-                        self.Board[i][j] = '━'
+                        self.Board[i][j] = updown
+                        
+                if i == self.height - 3:
+                    if j > 2 and j < self.width-3 and j % 2 == 1:
+                        self.Board[i][j] = stars
+                        
+                if i == 3 and ( j > 2 and j < self.width - 3 ):
+                    self.Board[i][j] = updown
                         
                         
-    def rendergameborder(self):
+    def rendergame(self):
         for i in range(self.height):
                 for j in range(self.width):
 
                     if(self.Board[i][j] != None):
-                        pixel = self.Board[i][j]
+                        pixel = self.Board[i][j].getsprite()
 
                         print(pixel, sep="", end="")
 
@@ -75,4 +96,20 @@ class Window:
                         print(pixel, sep="", end="")
 
                 print()
+                
+    def clearinnerboard(self):
+        for i in range( 4, self.height - 3):
+            for j in range( 3, self.width - 3):
+                self.Board[i][j] = None
+        
+        
+                
+                
+    def addpaddletoboard(self, Item):
+        x,y = Item.getloc()
+        width, height = Item.getpaddledetails()
+        j = self.height - 5
+        for i in range(0,width,1):            
+            self.Board[j][x + i] = Item
+        
         
