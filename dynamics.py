@@ -14,7 +14,7 @@ def collitionball(ball, window):
 
     nxcor = xcor + yvel
     
-    
+    # if board[nycor][nxcor].idtag != 'P' or board[nycor][xcor].idtag != 'P' :
     if board[nycor][nxcor] != None and board[ycor][nxcor] != None and board[nycor][xcor] != None:
         xvel = -xvel
         yvel = -yvel

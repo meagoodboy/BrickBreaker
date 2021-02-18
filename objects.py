@@ -5,7 +5,7 @@ init()
 
 #class for all objects that are printed in the terminal
 class Objects:
-    def __init__(self, xcor, ycor, xvel = 0, yvel = 0, sprite = None, colour = Fore.WHITE):
+    def __init__(self, xcor, ycor, xvel = 0, yvel = 0, sprite = None, colour = Fore.WHITE, idtag = 'O'):
         self.xcor = xcor
         self.ycor = ycor
         self.xvel = xvel
@@ -13,6 +13,7 @@ class Objects:
         self.sprite = sprite
         self.colour = colour
         self.multiplier = 2
+        self.idtag = idtag 
         
     def getloc(self):
         return self.xcor, self.ycor
@@ -34,8 +35,8 @@ class Objects:
         
 #class for the paddle inherited fron Object
 class Paddle(Objects):
-    def __init__(self, xcor, ycor, width, xvel = 0, yvel = 0, sprite = "▒", colour = Fore.GREEN):
-        super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
+    def __init__(self, xcor, ycor, width, xvel = 0, yvel = 0, sprite = "▒", colour = Fore.GREEN, idtag = 'P'):
+        super().__init__(xcor, ycor, xvel, yvel, sprite, colour, idtag)
         self.height = 1
         self.width = width
         

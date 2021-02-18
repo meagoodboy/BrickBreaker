@@ -121,6 +121,14 @@ class Window:
             
     def addballtoboard(self, Item):
         x,y = Item.getloc()
+        xv, yv = Item.getvel()
+        if x <= 4:
+            x = 4
+            xv = abs(xv)
+        if x >= self.width - 4:
+            x = self.width - 4
+            xv = -abs(xv)
+        Item.setvel(xv,yv)
         self.Board[y][x] = Item
         
         
