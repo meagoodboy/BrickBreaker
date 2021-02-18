@@ -8,7 +8,7 @@ init()
 class Window:
     def __init__(self):
         terminal_dimentions = os.get_terminal_size()
-        self.height = terminal_dimentions.lines - 2
+        self.height = terminal_dimentions.lines - 4
         self.width = terminal_dimentions.columns
         self.ball = None
         self.paddle = None
@@ -75,7 +75,7 @@ class Window:
                         self.Board[i][j] = updown
                         
                 if i == self.height - 3:
-                    if j > 2 and j < self.width-3 and j % 2 == 1:
+                    if j > 2 and j < self.width-3:
                         self.Board[i][j] = stars
                         
                 if i == 3 and ( j > 2 and j < self.width - 3 ):

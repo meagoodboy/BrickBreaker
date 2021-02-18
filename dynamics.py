@@ -3,16 +3,30 @@
 
 def collitionball(ball, window):
     
-    vel , nvel, evel , nevel, sevel = ball.getvel()
+    xvel , yvel = ball.getvel()
     board = window.getboard()
     xcor , ycor = ball.getloc()
     
-    nycor = ycor + (-1*nvel)
-    nycor = nycor + (-1*nevel)
-    nycor = nycor + (1*sevel)
+    ixvel = xvel
+    iyvel = yvel
     
-    nxcor = xcor + (1*nevel)
-    nxcor = nxcor + (1*evel)
-    nxcor = nxcor + (1*sevel)
+    nycor = ycor + yvel
+
+    nxcor = xcor + yvel
     
     
+    if board[nycor][nxcor] != None and board[ycor][nxcor] != None and board[nycor][xcor] != None:
+        xvel = -xvel
+        yvel = -yvel
+    elif board[ycor][nxcor] != None and board[nycor][xcor] != None:
+        xvel = -xvel
+        yvel = -yvel
+    elif board[nycor][nxcor] != None and board[nycor][xcor] != None:
+        yvel = -yvel
+    elif board[nycor][nxcor] != None and board[ycor][nxcor] != None:
+        xvel = -xvel
+    elif board[nycor][nxcor] != None:
+        xvel = -xvel
+        yvel = -yvel
+        
+    ball.setvel( xvel, yvel)

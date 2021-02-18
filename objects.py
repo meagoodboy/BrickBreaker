@@ -24,6 +24,13 @@ class Objects:
         self.xcor = x
         self.ycor = y
         
+    def getvel(self):
+        return self.xvel, self.yvel
+    
+    def setvel(self, x, y):
+        self.xvel = x
+        self.yvel = y
+        
         
 #class for the paddle inherited fron Object
 class Paddle(Objects):
@@ -48,24 +55,15 @@ class Paddle(Objects):
         
 #class foe all the balls inherited from Object
 class Ball(Objects):
-    def __init__(self, xcor, ycor, xvel = 0, yvel = 0, radius= None, sprite = "⬤", colour = Fore.WHITE):
+    def __init__(self, xcor, ycor, xvel = 0, yvel = 0, sprite = "⬤", colour = Fore.WHITE):
         super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
-        self.radius = radius
-        self.vel = 0
-        self.Nd = 0
-        self.Ed = 0
-        self.NEd = 0
-        self.SEd = 0
-
+        pass
+    
+    
+    def ballmovement(self):
+        self.xcor = self.xcor + self.xvel
+        self.ycor = self.ycor + self.yvel
         
-    def setvel(self, velocity):
-        self.vel = velocity
-        
-    def setdir(self, a, b, c, d):
-        self.Nd = a
-        self.Ed = b
-        self.NEd = c
-        self.SEd = d
 
-    def getvel(self):
-        return self.vel, self.Nd, self.Ed, self.NEd, self.SEd
+
+    
