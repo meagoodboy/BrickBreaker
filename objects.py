@@ -12,7 +12,7 @@ class Objects:
         self.yvel = yvel
         self.sprite = sprite
         self.colour = colour
-        self.multiplier = 2
+        self.multiplier = 4
         self.idtag = idtag 
         
     def getloc(self):
@@ -43,6 +43,8 @@ class Paddle(Objects):
     def getpaddledetails(self):
         return self.width, self.height
         
+    def changepaddlewidth(self, newwidth):
+        self.width = newwidth
         
     # function to change coordinates based on keystrokes    
     def paddlemovement(self, keystroke):
@@ -64,6 +66,14 @@ class Ball(Objects):
     def ballmovement(self):
         self.xcor = self.xcor + self.xvel
         self.ycor = self.ycor + self.yvel
+        
+        
+        
+        
+class Brick(Objects):
+    def __init__(self, xcor, ycor, bproperty = 'N' xvel = 0, yvel = 0, colour = Fore.WHITE, sprite = "▒"):
+        super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
+        self.bproperty = bproperty
         
 
 

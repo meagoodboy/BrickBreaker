@@ -4,7 +4,7 @@ import sys
 from gamewindow import Window
 from objects import Objects, Paddle, Ball
 from Input import manageinput
-from dynamics import collitionball
+from dynamics import collitionballborder, collisionballpaddle
 
 
 def alarmHandler(*arg):
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     window.initgameborder()
     wxcor, wycor = window.getwindowcor()
     
-    
+    #give paddlewidth as a multiple of 2 everytime
     paddle = Paddle(int(wxcor/2) - 5, wycor-5, 20, 2, 1)
     ball = Ball(int(wxcor/2), wycor-6, 0, 1)
     ball.setvel( -1, -1)
@@ -42,11 +42,13 @@ if __name__ == "__main__":
             signal.signal(signal.SIGALRM, alarmHandler)
             signal.setitimer(signal.ITIMER_REAL, timeout)
             
-            
-            ball.ballmovement()
-            collitionball(ball, window)
             #collisionball(ball, window)
+            ball.ballmovement()
+            ballborder = collitionballborder(ball, window)
+            ballpaddle = collisionballpaddle(ball, window, paddle)
+            #collisionballpaddle(ball, window)
             
+            #render everything
             window.clearinnerboard()
             window.addpaddletoboard(paddle)
             window.addballtoboard(ball)
