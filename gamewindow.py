@@ -12,6 +12,13 @@ class Window:
         self.width = terminal_dimentions.columns
         self.ball = None
         self.paddle = None
+        if self.height > 40:
+            self.height = 40
+        if self.width > 140:
+            self.width = 140
+        
+        
+        
         
     def getwindowcor(self):
         return self.width, self.height
@@ -128,5 +135,10 @@ class Window:
         
     def getboard(self):
         return self.Board
-        
+    
+    def addbricktoboard(self, Item):
+        x,y = Item.getloc()
+        # width = 8 for a standard brick
+        for i in range(0,8,1):            
+            self.Board[y][x + i] = Item
         

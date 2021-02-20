@@ -1,10 +1,12 @@
 import os
 import signal
 import sys
+import time
 from gamewindow import Window
-from objects import Objects, Paddle, Ball
+from objects import Objects, Paddle, Ball, Brick
 from Input import manageinput
 from dynamics import collitionballborder, collisionballpaddle
+# from levels import level1
 
 
 def alarmHandler(*arg):
@@ -17,10 +19,20 @@ if __name__ == "__main__":
     
     
     
+    loopvar = 1
     
     window = Window()
     window.initgameborder()
     wxcor, wycor = window.getwindowcor()
+    
+    
+    #throws error is window is small
+    if wxcor < 140 or wycor < 40:
+        print("terminal size is too small")
+        time.sleep(3)
+        loopvar = 0
+    
+    
     
     #give paddlewidth as a multiple of 2 everytime
     paddle = Paddle(int(wxcor/2) - 5, wycor-5, 20, 2, 1)
@@ -36,7 +48,7 @@ if __name__ == "__main__":
      #   HELP fix fps
     sys.stdout.write("\033[?25l")
     sys.stdout.flush()  
-    while True:
+    while loopvar:
         
         try:
             signal.signal(signal.SIGALRM, alarmHandler)
@@ -73,3 +85,5 @@ if __name__ == "__main__":
         except :
             signal.signal(signal.SIGALRM, signal.SIG_IGN)
             pass
+    os.system('clear')  
+    print(window.getwindowcor())

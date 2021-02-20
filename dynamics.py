@@ -29,7 +29,7 @@ def collitionballborder(ball, window):
     
     nycor = ycor + yvel
 
-    nxcor = xcor + yvel
+    nxcor = xcor + xvel
     
     width, height = window.getwindowcor()
     
@@ -61,7 +61,7 @@ def collisionballpaddle(ball, window, paddle):
     iyvel = yvel
     
     nycor = ycor + yvel
-    nxcor = xcor + yvel
+    nxcor = xcor + xvel
     
     pxcor, pycor = paddle.getloc()
     pwidth, pheight = paddle.getpaddledetails()
@@ -96,7 +96,7 @@ def collisionballbrick(ball, window):
     
     nycor = ycor + yvel
 
-    nxcor = xcor + yvel
+    nxcor = xcor + xvel
     
     
     if board[nycor][nxcor].idtag == 'B' and board[ycor][nxcor].idtag == 'B' and board[nycor][xcor].idtag == 'B':

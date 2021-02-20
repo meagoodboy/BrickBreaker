@@ -71,10 +71,15 @@ class Ball(Objects):
         
         
 class Brick(Objects):
-    def __init__(self, xcor, ycor, bproperty = 'N' xvel = 0, yvel = 0, colour = Fore.WHITE, sprite = "▒"):
+    def __init__(self, b_id, xcor, ycor, health, bproperty = 'N', xvel = 0, yvel = 0, colour = Fore.WHITE, sprite = "▒"):
         super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
         self.bproperty = bproperty
-        
-
+        self.health = health
+        self.b_id = b_id 
 
     
+    def diewithahit():
+        pass
+    
+    def diewithablast():
+        pass
