@@ -1,8 +1,36 @@
 import os
+import time
 from colorama import init, Fore
 from objects import Objects
 
 init()
+
+
+def converttochar(number):
+    if number == 0:
+        return '0'
+    elif number == 1:
+        return '1'
+    elif number == 2:
+        return '2'
+    elif number == 3:
+        return '3'
+    elif number == 4:
+        return '4'
+    elif number == 5:
+        return '5'
+    elif number == 6:
+        return '6'
+    elif number == 7:
+        return '7'   
+    elif number == 8:
+        return '8'
+    elif number == 9:
+        return '9'
+    
+
+
+
 
 # A class for the game window
 class Window:
@@ -87,8 +115,51 @@ class Window:
                         
                 if i == 3 and ( j > 2 and j < self.width - 3 ):
                     self.Board[i][j] = updown
+            
                         
-                        
+        self.Board[2][5] = Objects(0,0,0,0,'L',Fore.GREEN)
+        self.Board[2][6] = Objects(0,0,0,0,'E',Fore.GREEN)
+        self.Board[2][7] = Objects(0,0,0,0,'V',Fore.GREEN)
+        self.Board[2][8] = Objects(0,0,0,0,'E',Fore.GREEN)
+        self.Board[2][9] = Objects(0,0,0,0,'L',Fore.GREEN)
+        self.Board[2][10] = Objects(0,0,0,0,':',Fore.GREEN)    
+             
+        
+        self.Board[2][25] = Objects(0,0,0,0,'L',Fore.GREEN)
+        self.Board[2][26] = Objects(0,0,0,0,'I',Fore.GREEN)
+        self.Board[2][27] = Objects(0,0,0,0,'V',Fore.GREEN)
+        self.Board[2][28] = Objects(0,0,0,0,'E',Fore.GREEN)
+        self.Board[2][29] = Objects(0,0,0,0,'S',Fore.GREEN)
+        self.Board[2][30] = Objects(0,0,0,0,':',Fore.GREEN)
+        
+        
+        self.Board[2][45] = Objects(0,0,0,0,'T',Fore.GREEN)
+        self.Board[2][46] = Objects(0,0,0,0,'I',Fore.GREEN)
+        self.Board[2][47] = Objects(0,0,0,0,'M',Fore.GREEN)
+        self.Board[2][48] = Objects(0,0,0,0,'E',Fore.GREEN)
+        self.Board[2][49] = Objects(0,0,0,0,':',Fore.GREEN)
+        self.Board[2][50] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][51] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][52] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][53] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][54] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][55] = Objects(0,0,0,0,'0',Fore.GREEN)
+        
+        
+        self.Board[2][95] = Objects(0,0,0,0,'S',Fore.GREEN)
+        self.Board[2][96] = Objects(0,0,0,0,'C',Fore.GREEN)
+        self.Board[2][97] = Objects(0,0,0,0,'O',Fore.GREEN)
+        self.Board[2][98] = Objects(0,0,0,0,'R',Fore.GREEN)
+        self.Board[2][99] = Objects(0,0,0,0,'E',Fore.GREEN)
+        self.Board[2][100] = Objects(0,0,0,0,':',Fore.GREEN)
+        self.Board[2][101] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][102] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][103] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][104] = Objects(0,0,0,0,'0',Fore.GREEN)
+        self.Board[2][105] = Objects(0,0,0,0,'0',Fore.GREEN)
+        
+        
+                       
     def rendergame(self):
         for i in range(self.height):
                 for j in range(self.width):
@@ -142,4 +213,67 @@ class Window:
         Item.setcolour()
         for i in range(0,8,1):            
             self.Board[y][x + i] = Item
+        
+    def modifytime(self, time):
+        a = time % 10
+        time = int(time/10)
+        b = time % 10
+        time = int(time/10)
+        c = time % 10
+        time = int(time/10)
+        d = time % 10
+        time = int(time/10)
+        e = time % 10
+        
+        a = converttochar(a)
+        b = converttochar(b)
+        c = converttochar(c)
+        d = converttochar(d)
+        e = converttochar(e)
+        
+        self.Board[2][51] = Objects(0,0,0,0,e,Fore.GREEN)
+        self.Board[2][52] = Objects(0,0,0,0,d,Fore.GREEN)
+        self.Board[2][53] = Objects(0,0,0,0,c,Fore.GREEN)
+        self.Board[2][54] = Objects(0,0,0,0,b,Fore.GREEN)
+        self.Board[2][55] = Objects(0,0,0,0,a,Fore.GREEN)
+    #2, 50- 55
+    
+    def modifyscore(self, score):
+        a = score % 10
+        score= int(score/10)
+        b = score % 10
+        score= int(score/10)
+        c = score % 10
+        score= int(score/10)
+        d = score % 10
+        score= int(score/10)
+        e = score % 10
+        
+        a = converttochar(a)
+        b = converttochar(b)
+        c = converttochar(c)
+        d = converttochar(d)
+        e = converttochar(e)
+        
+        self.Board[2][101] = Objects(0,0,0,0,e,Fore.GREEN)
+        self.Board[2][102] = Objects(0,0,0,0,d,Fore.GREEN)
+        self.Board[2][103] = Objects(0,0,0,0,c,Fore.GREEN)
+        self.Board[2][104] = Objects(0,0,0,0,b,Fore.GREEN)
+        self.Board[2][105] = Objects(0,0,0,0,a,Fore.GREEN)
+    #2, 101 -105
+    
+    
+    def modifylevel(self, level):
+        lvl = converttochar(level)
+        
+        
+        self.Board[2][11] = Objects(0,0,0,0,lvl,Fore.GREEN)
+        #2,11
+    
+    def modifylives(self, lives):
+        liv = converttochar(lives)
+        
+        
+        self.Board[2][31] = Objects(0,0,0,0,liv,Fore.GREEN)
+        #2,31
         

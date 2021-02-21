@@ -12,7 +12,7 @@ def checkdead(ball, window):
     
     width, height = window.getwindowcor()
 
-    if nycor >= height - 4:
+    if nycor >= height - 3:
         return 1
     else:
         return 0
