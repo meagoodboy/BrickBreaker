@@ -5,8 +5,8 @@ import time
 from gamewindow import Window
 from objects import Objects, Paddle, Ball, Brick
 from Input import manageinput
-from dynamics import collitionballborder, collisionballpaddle
-# from levels import level1
+from dynamics import collitionballborder, collisionballpaddle, collisionballbrick, checkdead
+from levels import level1ini, printallbricks
 
 
 def alarmHandler(*arg):
@@ -34,8 +34,9 @@ if __name__ == "__main__":
     
     
     
+    
     #give paddlewidth as a multiple of 2 everytime
-    paddle = Paddle(int(wxcor/2) - 5, wycor-5, 20, 2, 1)
+    paddle = Paddle(int(wxcor/2) - 5, wycor-5, 20, 4, 1)
     ball = Ball(int(wxcor/2), wycor-6, 0, 1)
     ball.setvel( -1, -1)
     # window.addpaddletoboard(paddle)
@@ -43,7 +44,8 @@ if __name__ == "__main__":
     timeout = 0.05
     keyinput = manageinput()
         
-        
+    
+    bricks = level1ini(window)    
         
      #   HELP fix fps
     sys.stdout.write("\033[?25l")
@@ -56,14 +58,17 @@ if __name__ == "__main__":
             
             #collisionball(ball, window)
             ball.ballmovement()
+            dead = checkdead(ball, window)
             ballborder = collitionballborder(ball, window)
             ballpaddle = collisionballpaddle(ball, window, paddle)
+            ballbrick = collisionballbrick(ball, window)
             #collisionballpaddle(ball, window)
             
             #render everything
             window.clearinnerboard()
             window.addpaddletoboard(paddle)
             window.addballtoboard(ball)
+            printallbricks(window ,bricks)
             os.system('clear')
             window.rendergame()
             #getting input and filtering them

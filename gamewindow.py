@@ -139,6 +139,7 @@ class Window:
     def addbricktoboard(self, Item):
         x,y = Item.getloc()
         # width = 8 for a standard brick
+        Item.setcolour()
         for i in range(0,8,1):            
             self.Board[y][x + i] = Item
         

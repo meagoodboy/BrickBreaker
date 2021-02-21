@@ -60,26 +60,65 @@ class Paddle(Objects):
 class Ball(Objects):
     def __init__(self, xcor, ycor, xvel = 0, yvel = 0, sprite = "⬤", colour = Fore.WHITE):
         super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
-        pass
+        self.power = 0
     
     
     def ballmovement(self):
         self.xcor = self.xcor + self.xvel
         self.ycor = self.ycor + self.yvel
         
+    def getpower(self):
+        return self.power
+    
+    def setpower(self, power):
+        self.power = power
+        
         
         
         
 class Brick(Objects):
-    def __init__(self, b_id, xcor, ycor, health, bproperty = 'N', xvel = 0, yvel = 0, colour = Fore.WHITE, sprite = "▒"):
-        super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
+    def __init__(self, b_id, xcor, ycor, health, bproperty = 'N', xvel = 0, yvel = 0, colour = Fore.WHITE, sprite = "▒", idtag = 'B'):
+        super().__init__(xcor, ycor, xvel, yvel, sprite, colour, idtag)
         self.bproperty = bproperty
         self.health = health
         self.b_id = b_id 
 
-    
-    def diewithahit():
-        pass
-    
+
+    def setcolour(self):
+        if self.bproperty == 'N':
+            if self.health == 1:
+                self.colour = Fore.BLUE
+            elif self.health == 2:
+                self.colour = Fore.GREEN
+            elif self.health == 3:
+                self.colour = Fore.CYAN
+            elif self.health == 4:
+                self.colour = Fore.RED
+        elif self.bproperty == 'E':
+            self.colour = Fore.LIGHTYELLOW_EX
+        elif self.bproperty == 'U':  
+            self.colour = Fore.WHITE
+        else:
+            if self.health == 1:
+                self.colour = Fore.LIGHTBLUE_EX
+            elif self.health == 2:
+                self.colour = Fore.LIGHTGREEN_EX
+            elif self.health == 3:
+                self.colour = Fore.LIGHTCYAN_EX
+            elif self.health == 4:
+                self.colour = Fore.LIGHTRED_EX
+            
+
+
+    def diewithahit(self, power):
+        if power == 0 and self.bproperty != 'U':
+            self.health = self.health - 1
+        elif self.bproperty == 'U':
+            pass
+        else:
+            self.health = 0
+        
+        
+        
     def diewithablast():
         pass
