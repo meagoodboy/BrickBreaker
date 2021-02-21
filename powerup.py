@@ -33,12 +33,13 @@ def activatepowerup(ball, paddle, val):
     elif val == 'M':
         pass
     elif val == 'F':
-        pass
+        return 5
     elif val == 'T':
         ball.setpower(1)
         ball.setcolour(Fore.RED)
     elif val == 'G':
-        pass
+        return 6
+    return 0
     
 def terminatepowerups(ball, paddle , powerlist, timeouts, expiry):
     for i in powerlist:
@@ -50,15 +51,15 @@ def terminatepowerups(ball, paddle , powerlist, timeouts, expiry):
             elif i[0] == 'M':
                 pass
             elif i[0] == 'F':
-                pass
+                return 5
             elif i[0] == 'T':
                 pass
                 ball.setpower(0)
                 # ball.setcolour(Fore.WHITE)
             elif i[0] == 'G':
-                pass        
+                return 6        
             powerlist.remove(i)
-            
+    return 0
             
 def terminateallpowerups(ball, paddle):
     paddle.changepaddlewidth(30)

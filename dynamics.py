@@ -246,19 +246,16 @@ def collisionballbrick(ball, window):
         return a
     
     
-def blastit(x, y, bricks, window):
+def blastit(xcc, ycc, bricks):
     blastlist = [(x,y)]
-    board = window.getboard()
-    for i in blastlist:
-        lx = i[0] - 10
-        ly = i[1] - 10
-        ux = i[0] + 10
-        uy = i[1] + 10
-        for a in range(lx,ux):
-            for b in range(ly,uy):
-                if board[b][a].idtag == 'B':
-                    if board[b][a].bproperty == 'E':
-                        blastit.append((a,b))
-                    else:
-                        t = board[b][a].diewithahit(1)
-        
+    lx = xcc - 15
+    ly = ycc - 10
+    ux = xcc + 15
+    uy = ycc + 10
+    for i in bricks:
+        xc, yc = i.getloc()
+        if xc >= lx and xc <=ux and yc >= ly and yc <= uy:
+            test = 4
+            i.health = 0
+            
+    return bricks

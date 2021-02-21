@@ -18,7 +18,7 @@ press x to force exit the game
 
 press c to continue paused game
 
-you will have 3 lives 
+set the lives in config file
 
 the score is calculated based on the no of hits on the brick
 

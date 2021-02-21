@@ -10,7 +10,7 @@ from Input import manageinput
 from dynamics import collitionballborder, collisionballpaddle, collisionballbrick, checkdead, blastit
 from levels import level1ini, printallbricks, checklevelover, level2ini, level3ini
 from powerup import  powerupmove, powerupaddtoboard, powerupcollide, activatepowerup, terminatepowerups, terminateallpowerups
-
+import config as config
 
 def alarmHandler(*arg):
     raise Exception
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     loopvar = 1
     countloop = 0
     level = 1
-    lives = 3
+    lives = config.livess
     score = 0
     timecount = 0
     won = 0
@@ -35,8 +35,9 @@ if __name__ == "__main__":
     window = Window()
     window.initgameborder()
     wxcor, wycor = window.getwindowcor()
-    
-    
+    velocityoverride = 0
+    grabbingoverride = 0
+    multiplieroverride = 0
     #throws error is window is small
     if wxcor < 140 or wycor < 40:
         print("terminal size is too small")
@@ -56,7 +57,7 @@ if __name__ == "__main__":
     # print(randomvar)
     # window.addpaddletoboard(paddle)
     # window.rendergame()
-    timeout = 0.05
+    timeout = config.timeouts
     keyinput = manageinput()
     time.sleep(4)    
     #test variable 
@@ -81,6 +82,7 @@ if __name__ == "__main__":
             if ballvelx == 0 and keyinput.returninput == 'c':
                 randomvar = random.choice(randvelocity)
                 ball.setvel( randomvar ,-1)
+                grabbingoverride = 0
             
             #collisionball(ball, window)
             if ballvelx != 0:
@@ -89,18 +91,46 @@ if __name__ == "__main__":
                 dead = checkdead(ball, window)
                 ballborder = collitionballborder(ball, window)
                 ballpaddle = collisionballpaddle(ball, window, paddle)
+                if velocityoverride == 1:
+                    xvi, yvi = ball.getvel()
+                    xvi = xvi/abs(xvi)
+                    yvi = yvi/abs(yvi)
+                    xvi = int(2*xvi)
+                    yvi = int(2*yvi)
+                    ball.setvel(xvi, yvi)
                 ballbrick = collisionballbrick(ball, window)
                 powerupval = powerupcollide(paddle, poweruplist)
                 if powerupval != 'N' :
                     # test = 9
                     activepowerups.append((powerupval, timecount))
-                    activatepowerup(ball, paddle, powerupval)
+                    check = activatepowerup(ball, paddle, powerupval)
+                    if check == 5:
+                        velocityoverride = 1
+                    if check == 6:
+                        grabbingoverride = 1
+                
                 if ballbrick != 0:
                     test = ballbrick
                 if ballbrick == 2:
                     xcc , ycc = ball.getloc()
                     test = 3
-                    blastit(xcc, ycc, bricks, window)
+                    # blastit(xcc, ycc, bricks, window)
+                    bllist = [(xcc,ycc)]
+                    for k in bllist:
+                        lx = k[0] - 15
+                        ly = k[1] - 10
+                        ux = k[0] + 15
+                        uy = k[1] + 10
+                        for i in bricks:
+                            xc, yc = i.getloc()
+                            if i.bproperty == 'E' and i.health != 0:
+                                bllist.append(i.getloc())
+                            if xc >= lx and xc <=ux and yc >= ly and yc <= uy:
+                                test = 4
+                                i.health = 0
+                        blllist.remove(k)
+                            
+                            
                     # test = 8
                 elif ballbrick > 2:
                     xc, yc = ball.getloc()
@@ -146,6 +176,8 @@ if __name__ == "__main__":
             if levelover:
                 bricks.clear()
                 terminateallpowerups(ball, paddle)
+                velocityoverride = 0
+                grabbingoverride = 0
                 poweruplist.clear()
                 activepowerups.clear()
                 if level == 1:
@@ -170,7 +202,11 @@ if __name__ == "__main__":
             window.modifytime(timecount)
             window.modifyscore(score)
             window.modifytest(test)
-            terminatepowerups(ball, paddle, activepowerups, timecount, 5)
+            check2 = terminatepowerups(ball, paddle, activepowerups, timecount, 10)
+            if check2 == 5:
+                velocityoverride = 0
+            elif check2 == 6:
+                grabbingoverride = 0
             #render everything
             if ballvelx != 0:
                 window.clearinnerboard()
@@ -178,8 +214,8 @@ if __name__ == "__main__":
                 window.addballtoboard(ball)
                 powerupaddtoboard(window, poweruplist)
                 printallbricks(window ,bricks)
-                os.system('clear')
-                window.rendergame()
+            os.system('clear')
+            window.rendergame()    
             #getting input and filtering them
             
             
@@ -213,4 +249,5 @@ if __name__ == "__main__":
         print("you lost, better luck next time")
         
     # print(levelover)
-    # print(activepowerups)
+    # print(activepowerups)Fbo
+    # print(lx , ux, ly, uy)
