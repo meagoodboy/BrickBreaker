@@ -5,10 +5,11 @@ import time
 import random
 from colorama import Fore
 from gamewindow import Window
-from objects import Objects, Paddle, Ball, Brick
+from objects import Objects, Paddle, Ball, Brick, Powerupimg
 from Input import manageinput
-from dynamics import collitionballborder, collisionballpaddle, collisionballbrick, checkdead
+from dynamics import collitionballborder, collisionballpaddle, collisionballbrick, checkdead, blastit
 from levels import level1ini, printallbricks, checklevelover, level2ini, level3ini
+from powerup import  powerupmove, powerupaddtoboard, powerupcollide, activatepowerup, terminatepowerups, terminateallpowerups
 
 
 def alarmHandler(*arg):
@@ -28,6 +29,8 @@ if __name__ == "__main__":
     score = 0
     timecount = 0
     won = 0
+    poweruplist = []
+    activepowerups = []
     randvelocity = [ -1, 1]
     window = Window()
     window.initgameborder()
@@ -44,19 +47,20 @@ if __name__ == "__main__":
     print("press c to continue paused game")
     print("press a and d to move paddle")
     #give paddlewidth as a multiple of 2 everytime
-    paddle = Paddle(int(wxcor/2) - 5, wycor-5, 20, 4, 1)
+    paddle = Paddle(int(wxcor/2) - 5, wycor-5, 30, 4, 1)
     ball = Ball(int(wxcor/2), wycor-6, 0, 1)
     randomvar = random.choice(randvelocity)
     ball.setvel( randomvar ,-1)
     # randomloc = random.randint( int(wxcor/2) - 5, wycor-5)
     # ball.setloc(randomloc, wycor - 6)
-    print(randomvar)
+    # print(randomvar)
     # window.addpaddletoboard(paddle)
     # window.rendergame()
     timeout = 0.05
     keyinput = manageinput()
     time.sleep(4)    
-    
+    #test variable 
+    test = 0
     bricks = level1ini(window)    
     window.modifylevel(level)    
      #   HELP fix fps
@@ -81,13 +85,51 @@ if __name__ == "__main__":
             #collisionball(ball, window)
             if ballvelx != 0:
                 ball.ballmovement()
+                powerupmove(poweruplist, wycor - 4)
                 dead = checkdead(ball, window)
                 ballborder = collitionballborder(ball, window)
                 ballpaddle = collisionballpaddle(ball, window, paddle)
                 ballbrick = collisionballbrick(ball, window)
+                powerupval = powerupcollide(paddle, poweruplist)
+                if powerupval != 'N' :
+                    # test = 9
+                    activepowerups.append((powerupval, timecount))
+                    activatepowerup(ball, paddle, powerupval)
+                if ballbrick != 0:
+                    test = ballbrick
+                if ballbrick == 2:
+                    xcc , ycc = ball.getloc()
+                    test = 3
+                    blastit(xcc, ycc, bricks, window)
+                    # test = 8
+                elif ballbrick > 2:
+                    xc, yc = ball.getloc()
+                    #make paddle small
+                    if ballbrick == 3:
+                        poweruplist.append(Powerupimg(xc, yc, 'S', 'S'))
+                    elif ballbrick == 4:
+                        poweruplist.append(Powerupimg(xc, yc, 'L', 'L'))
+                    elif ballbrick == 5:
+                        poweruplist.append(Powerupimg(xc, yc, 'M', 'M'))
+                    elif ballbrick == 6:
+                        poweruplist.append(Powerupimg(xc, yc, 'F', 'F'))
+                    elif ballbrick == 7:
+                        poweruplist.append(Powerupimg(xc, yc, 'T', 'T'))
+                    elif ballbrick == 8:
+                        poweruplist.append(Powerupimg(xc, yc, 'G', 'G'))
+                        
+                elif ballbrick == 1:
+                    pass
+                else:
+                    pass
+            
+            
             #collisionballpaddle(ball, window)
             score = score + ballbrick
-            
+            # if not poweruplist:
+            #     test = 9
+            # else :
+            #     test = 2
             
             if dead:
                 if lives == 1:
@@ -103,6 +145,9 @@ if __name__ == "__main__":
             
             if levelover:
                 bricks.clear()
+                terminateallpowerups(ball, paddle)
+                poweruplist.clear()
+                activepowerups.clear()
                 if level == 1:
                     level = level + 1
                     bricks = level2ini(window)
@@ -124,12 +169,14 @@ if __name__ == "__main__":
             window.modifylives(lives)
             window.modifytime(timecount)
             window.modifyscore(score)
-               
+            window.modifytest(test)
+            terminatepowerups(ball, paddle, activepowerups, timecount, 5)
             #render everything
             if ballvelx != 0:
                 window.clearinnerboard()
                 window.addpaddletoboard(paddle)
                 window.addballtoboard(ball)
+                powerupaddtoboard(window, poweruplist)
                 printallbricks(window ,bricks)
                 os.system('clear')
                 window.rendergame()
@@ -165,4 +212,5 @@ if __name__ == "__main__":
     else:
         print("you lost, better luck next time")
         
-    print(levelover)
+    # print(levelover)
+    # print(activepowerups)

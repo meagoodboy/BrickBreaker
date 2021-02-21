@@ -213,6 +213,13 @@ class Window:
         Item.setcolour()
         for i in range(0,8,1):            
             self.Board[y][x + i] = Item
+            
+    def addpoweruptoboard(self, Item):
+        x,y = Item.getloc()
+        if y > self.height - 4:
+            pass
+        else:
+            self.Board[y][x] = Item
         
     def modifytime(self, time):
         a = time % 10
@@ -276,4 +283,7 @@ class Window:
         
         self.Board[2][31] = Objects(0,0,0,0,liv,Fore.GREEN)
         #2,31
-        
+    def modifytest(self, test):
+        tes = converttochar(test)
+        self.Board[2][110] = Objects(0,0,0,0,tes,Fore.GREEN)
+          

@@ -32,6 +32,9 @@ class Objects:
         self.xvel = x
         self.yvel = y
         
+    def setcolour(self, col):
+        self.colour = col
+        
         
 #class for the paddle inherited fron Object
 class Paddle(Objects):
@@ -113,12 +116,42 @@ class Brick(Objects):
     def diewithahit(self, power):
         if power == 0 and self.bproperty != 'U':
             self.health = self.health - 1
-        elif self.bproperty == 'U':
+        elif power == 0 and self.bproperty == 'U':
             pass
         else:
             self.health = 0
-        
-        
-        
+            
+        if self.health == 0:
+            if self.bproperty == 'S':
+                return 3
+            elif self.bproperty == 'L':
+                return 4
+            elif self.bproperty == 'M':
+                return 5
+            elif self.bproperty == 'F':
+                return 6
+            elif self.bproperty == 'T':
+                return 7
+            elif self.bproperty == 'G':
+                return 8
+            elif self.bproperty == 'E':
+                return 2
+            else :
+                return 1
+        else:
+            return 1
+    
+    
+    
     def diewithablast():
         pass
+    
+    
+class Powerupimg(Objects):
+    def __init__(self, xcor, ycor, ptype ,sprite = "⬤", colour = Fore.WHITE, xvel = 0, yvel = 1):
+        super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
+        self.ptype = ptype
+    
+    
+    def powerupmovement(self):
+        self.ycor = self.ycor + self.yvel

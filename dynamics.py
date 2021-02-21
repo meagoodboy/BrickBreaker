@@ -139,49 +139,56 @@ def collisionballbrick(ball, window):
     nxcor = xcor + xval
     
     power = ball.getpower()
+    a = 0
+    b = 0
+    c = 0
+    
     
     if board[nycor][nxcor] != None and board[ycor][nxcor] != None and board[nycor][xcor] != None:
         if board[nycor][nxcor].idtag == 'B' and board[ycor][nxcor].idtag == 'B' and board[nycor][xcor].idtag == 'B':
             xvel = -xvel
             yvel = -yvel
-            board[nycor][nxcor].diewithahit(power)
-            board[ycor][nxcor].diewithahit(power)
-            board[nycor][xcor].diewithahit(power)
+            a = board[nycor][xcor].diewithahit(power)
+            # b = board[ycor][nxcor].diewithahit(power)
+            # c = board[nycor][nxcor].diewithahit(power)
     elif board[ycor][nxcor] != None and board[nycor][xcor] != None:
         if board[ycor][nxcor].idtag == 'B' and board[nycor][xcor].idtag == 'B':
             xvel = -xvel
             yvel = -yvel
-            board[ycor][nxcor].diewithahit(power)
-            board[nycor][xcor].diewithahit(power)
+            a = board[ycor][nxcor].diewithahit(power)
+            # b =  board[nycor][xcor].diewithahit(power)
     elif board[nycor][nxcor] != None and board[nycor][xcor] != None:
         if board[nycor][nxcor].idtag == 'B' and board[nycor][xcor].idtag == 'B':
             yvel = -yvel
-            board[nycor][nxcor].diewithahit(power)
-            board[nycor][xcor].diewithahit(power)
+            a = board[nycor][nxcor].diewithahit(power)
+            # b = board[nycor][xcor].diewithahit(power)
     elif board[nycor][nxcor] != None and board[ycor][xcor] != None:
         if board[nycor][nxcor].idtag == 'B' and board[ycor][nxcor].idtag == 'B':
             xvel = -xvel
-            board[nycor][nxcor].diewithahit(power)
-            board[ycor][xcor].diewithahit(power)
+            a = board[nycor][nxcor].diewithahit(power)
+            # b = board[ycor][xcor].diewithahit(power)
     elif board[nycor][nxcor] != None:
         if board[nycor][nxcor].idtag == 'B':
             xvel = -xvel
             yvel = -yvel
-            board[nycor][nxcor].diewithahit(power)
+            a = board[nycor][nxcor].diewithahit(power)
     elif board[ycor][nxcor] != None:
         if board[ycor][nxcor].idtag == 'B':
             xvel = -xvel
-            board[ycor][nxcor].diewithahit(power)
+            a = board[ycor][nxcor].diewithahit(power)
     elif board[nycor][xcor] != None:
         if board[nycor][xcor].idtag == 'B':
             yvel = -yvel
-            board[nycor][xcor].diewithahit(power)
+            a = board[nycor][xcor].diewithahit(power)
      
     if power == 0:    
         ball.setvel( xvel, yvel)
+    
+    if b > a:
+        a = b
           
     if xvel != ixvel or yvel != iyvel :
-        return 1
+        return a
     
     if abs(xvel) > 1:
         nycor = nycor + yval
@@ -191,48 +198,67 @@ def collisionballbrick(ball, window):
         if board[nycor][nxcor].idtag == 'B' and board[ycor][nxcor].idtag == 'B' and board[nycor][xcor].idtag == 'B':
             xvel = -xvel
             yvel = -yvel
-            board[nycor][nxcor].diewithahit(power)
-            board[ycor][nxcor].diewithahit(power)
-            board[nycor][xcor].diewithahit(power)
+            a = board[nycor][nxcor].diewithahit(power)
+            # b = board[ycor][nxcor].diewithahit(power)
+            # c = board[nycor][xcor].diewithahit(power)
     elif board[ycor][nxcor] != None and board[nycor][xcor] != None:
         if board[ycor][nxcor].idtag == 'B' and board[nycor][xcor].idtag == 'B':
             xvel = -xvel
             yvel = -yvel
-            board[ycor][nxcor].diewithahit(power)
-            board[nycor][xcor].diewithahit(power)
+            a = board[ycor][nxcor].diewithahit(power)
+            # b = board[nycor][xcor].diewithahit(power)
     elif board[nycor][nxcor] != None and board[nycor][xcor] != None:
         if board[nycor][nxcor].idtag == 'B' and board[nycor][xcor].idtag == 'B':
             yvel = -yvel
-            board[nycor][nxcor].diewithahit(power)
-            board[nycor][xcor].diewithahit(power)
+            a = board[nycor][nxcor].diewithahit(power)
+            # a = board[nycor][xcor].diewithahit(power)
     elif board[nycor][nxcor] != None and board[ycor][xcor] != None:
         if board[nycor][nxcor].idtag == 'B' and board[ycor][nxcor].idtag == 'B':
             xvel = -xvel
-            board[nycor][nxcor].diewithahit(power)
-            board[ycor][xcor].diewithahit(power)
+            a = board[nycor][nxcor].diewithahit(power)
+            # a = board[ycor][xcor].diewithahit(power)
     elif board[nycor][nxcor] != None:
         if board[nycor][nxcor].idtag == 'B':
             xvel = -xvel
             yvel = -yvel
-            board[nycor][nxcor].diewithahit(power)
+            a = board[nycor][nxcor].diewithahit(power)
     elif board[ycor][nxcor] != None:
         if board[ycor][nxcor].idtag == 'B':
             xvel = -xvel
-            board[ycor][nxcor].diewithahit(power)
+            a = board[ycor][nxcor].diewithahit(power)
     elif board[nycor][xcor] != None:
         if board[nycor][xcor].idtag == 'B':
             yvel = -yvel
-            board[nycor][xcor].diewithahit(power)
+            a = board[nycor][xcor].diewithahit(power)
     
     
     if power == 0:    
         ball.setvel( xvel, yvel)
     
-    
+    if b > a :
+        a = b
     
     
     
     if xvel == ixvel and yvel == iyvel :
         return 0
     else :
-        return 1
+        return a
+    
+    
+def blastit(x, y, bricks, window):
+    blastlist = [(x,y)]
+    board = window.getboard()
+    for i in blastlist:
+        lx = i[0] - 10
+        ly = i[1] - 10
+        ux = i[0] + 10
+        uy = i[1] + 10
+        for a in range(lx,ux):
+            for b in range(ly,uy):
+                if board[b][a].idtag == 'B':
+                    if board[b][a].bproperty == 'E':
+                        blastit.append((a,b))
+                    else:
+                        t = board[b][a].diewithahit(1)
+        

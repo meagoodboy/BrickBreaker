@@ -10,12 +10,12 @@ def printallbricks( window , bricklist):
 def level1ini(window):
     bricklist = []
     
-    # bricklist.append(Brick(1, 10,10,4))
-    bricklist.append(Brick(2, 19,10,4))
-    # bricklist.append(Brick(3, 28,10,4))
-    # bricklist.append(Brick(4, 10,12,4))
-    # bricklist.append(Brick(5, 19,12,4))
-    # bricklist.append(Brick(6, 28,12,4))
+    bricklist.append(Brick(1, 10,10,4))
+    bricklist.append(Brick(2, 19,10,1,'E'))
+    bricklist.append(Brick(3, 28,10,4))
+    bricklist.append(Brick(4, 10,12,4))
+    bricklist.append(Brick(5, 19,12,4))
+    bricklist.append(Brick(6, 28,12,4))
     # bricklist.append(Brick(7, 10,14,4))
     # bricklist.append(Brick(8, 19,14,4))
     # bricklist.append(Brick(9, 28,14,4))
@@ -34,7 +34,7 @@ def level1ini(window):
     # bricklist.append(Brick(20, 109,10,4))
     # bricklist.append(Brick(21, 118,10,4))
     # bricklist.append(Brick(22, 100,12,4))
-    # bricklist.append(Brick(23, 109,12,4))
+    bricklist.append(Brick(23, 109,12,4))
     # bricklist.append(Brick(24, 118,12,4))
     # bricklist.append(Brick(25, 100,14,4))
     # bricklist.append(Brick(26, 109,14,4))
@@ -51,12 +51,12 @@ def level2ini(window):
     bricklist.append(Brick(1, 10,10,4))
     bricklist.append(Brick(2, 19,10,4))
     bricklist.append(Brick(3, 28,10,4))
-    bricklist.append(Brick(4, 10,12,4))
+    bricklist.append(Brick(4, 10,12,4,'T'))
     bricklist.append(Brick(5, 19,12,4))
     bricklist.append(Brick(6, 28,12,4))
     bricklist.append(Brick(7, 10,14,4))
     bricklist.append(Brick(8, 19,14,4))
-    bricklist.append(Brick(9, 28,14,4))
+    bricklist.append(Brick(9, 28,14,4,'T'))
     
 
     
