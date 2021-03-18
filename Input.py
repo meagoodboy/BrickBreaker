@@ -12,7 +12,7 @@ def getchar():
 
 class manageinput:
     def __init__(self):
-        self.accepted_inputs = ['A','a','D','d','X','x','C','c','s']
+        self.accepted_inputs = ['A','a','D','d','X','x','C','c','s','S']
         self.returninput = ''
     
     
@@ -20,8 +20,6 @@ class manageinput:
     
     def filterchar(self):
         char = getchar()
-        if char == ' ':
-            char = 's'
         if char in self.accepted_inputs:
             self.returninput = char.lower()
             # print(self.returninput)

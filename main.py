@@ -7,7 +7,7 @@ from colorama import Fore
 from gamewindow import Window
 from objects import Objects, Paddle, Ball, Brick, Powerupimg
 from Input import manageinput
-from dynamics import collitionballborder, collisionballpaddle, collisionballbrick, checkdead, blastit
+from dynamics import collitionballborder, collisionballpaddle, collisionballbrick, checkdead, blastit, checkbricks
 from levels import level1ini, printallbricks, checklevelover, level2ini, level3ini
 from powerup import  powerupmove, powerupaddtoboard, powerupcollide, activatepowerup, terminatepowerups, terminateallpowerups
 import config as config
@@ -38,6 +38,9 @@ if __name__ == "__main__":
     velocityoverride = 0
     grabbingoverride = 0
     multiplieroverride = 0
+    gravityactivate = 0
+    deadforeternity = 0
+    
     #throws error is window is small
     if wxcor < 140 or wycor < 40:
         print("terminal size is too small")
@@ -47,6 +50,7 @@ if __name__ == "__main__":
     print("press x to exit")
     print("press c to continue paused game")
     print("press a and d to move paddle")
+    print("press s to skip levels")
     #give paddlewidth as a multiple of 2 everytime
     paddle = Paddle(int(wxcor/2) - 5, wycor-5, 30, 4, 1)
     ball = Ball(int(wxcor/2), wycor-6, 0, 1)
@@ -73,6 +77,10 @@ if __name__ == "__main__":
         if countloop == 20:
             timecount = timecount + 1
             countloop = 0
+            
+        if timecount % 9 == 0 and timecount != 0:
+            gravityactivate = 1
+            
         try:
             signal.signal(signal.SIGALRM, alarmHandler)
             signal.setitimer(signal.ITIMER_REAL, timeout)
@@ -153,7 +161,14 @@ if __name__ == "__main__":
                 else:
                     pass
             
-            
+            if ballpaddle == 1 and gravityactivate == 1:
+                for b in bricks:
+                    b.gravityeffect(1)
+                gravityactivate = 0
+            deadforeternity = checkbricks(bricks, wycor - 5)
+            if deadforeternity == 1:
+                lives = 0
+                break;
             #collisionballpaddle(ball, window)
             score = score + ballbrick
             # if not poweruplist:
@@ -170,7 +185,8 @@ if __name__ == "__main__":
                     ball.setloc(int(wxcor/2), wycor-6)
                     paddle.setloc(int(wxcor/2) - 5, wycor-5)
                 dead = 0
-                    
+            
+                   
             levelover = checklevelover(bricks)
             
             if levelover:
@@ -195,13 +211,16 @@ if __name__ == "__main__":
                 ball.setloc(int(wxcor/2), wycor-6)
                 paddle.setloc(int(wxcor/2) - 5, wycor-5)
                 levelover = 0
+            dx = 0
+            for xb in bricks:
+                dx = xb.changecolour()
                     
             # modify gamestats here
             window.modifylevel(level)
             window.modifylives(lives)
             window.modifytime(timecount)
             window.modifyscore(score)
-            window.modifytest(test)
+            window.modifytest(dx)
             check2 = terminatepowerups(ball, paddle, activepowerups, timecount, 10)
             if check2 == 5:
                 velocityoverride = 0
@@ -226,7 +245,10 @@ if __name__ == "__main__":
             if ballvelx != 0:
                 paddle.paddlemovement(keyinput.returninput)
             
-            
+            # to skip levels
+            if keyinput.returninput == 's':
+                bricks.clear()
+                os.system('clear')
             
             
             

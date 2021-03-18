@@ -1,4 +1,5 @@
 from colorama import init, Fore 
+import random
 
 init()
 
@@ -84,7 +85,8 @@ class Brick(Objects):
         super().__init__(xcor, ycor, xvel, yvel, sprite, colour, idtag)
         self.bproperty = bproperty
         self.health = health
-        self.b_id = b_id 
+        self.b_id = b_id
+        self.touched = 0
 
 
     def setcolour(self):
@@ -114,6 +116,7 @@ class Brick(Objects):
 
 
     def diewithahit(self, power):
+        self.touched = 1
         if power == 0 and self.bproperty != 'U':
             self.health = self.health - 1
         elif power == 0 and self.bproperty == 'U':
@@ -145,6 +148,17 @@ class Brick(Objects):
     
     def diewithablast():
         pass
+    
+    def gravityeffect(self, weight):
+        self.ycor = self.ycor + weight
+        
+    def changecolour(self):
+        lol = [4,3,1,2]
+        m = 0
+        if self.bproperty == 'R' and self.touched == 0:
+            self.health = random.choice(lol)
+            m =1
+        return m
     
     
 class Powerupimg(Objects):

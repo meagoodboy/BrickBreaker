@@ -259,3 +259,11 @@ def blastit(xcc, ycc, bricks):
             i.health = 0
             
     return bricks
+
+
+def checkbricks(bricks, ll):
+    for i in bricks:
+        x, y = i.getloc()
+        if y >= ll - 1 and i.health != 0:
+            return 1
+    return 0
