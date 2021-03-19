@@ -122,6 +122,8 @@ if __name__ == "__main__":
                 ballborder = collitionballborder(ball, window)
                 ballpaddle = collisionballpaddle(ball, window, paddle)
                 ballboss = collisionballboss(ball, window)
+                if ballborder or ballpaddle or ballboss :
+                    print("\a")
                 if ballboss == 1 and bossitem.health % 7 == 0:
                     bricks.append(Brick(50, 10,14,1))
                     bricks.append(Brick(50, 20,14,1))
@@ -138,6 +140,7 @@ if __name__ == "__main__":
                     
                 if ballboss == 1 and bossitem.health == 0:
                     bossdead = 1
+                    score = score + 50
                 # print('\a')
                 if velocityoverride == 1:
                     xvi, yvi = ball.getvel()
@@ -147,6 +150,8 @@ if __name__ == "__main__":
                     yvi = int(2*yvi)
                     ball.setvel(xvi, yvi)
                 ballbrick = collisionballbrick(ball, window)
+                if ballbrick:
+                    print("\a")
                 powerupval = powerupcollide(paddle, poweruplist)
                 if powerupval != 'N' :
                     # test = 9
