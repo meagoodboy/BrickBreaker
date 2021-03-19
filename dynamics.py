@@ -267,3 +267,136 @@ def checkbricks(bricks, ll):
         if y >= ll - 1 and i.health != 0:
             return 1
     return 0
+def collisionbulletpaddle(bullet, paddle):
+    bx, by = bullet.getloc()
+    px, py = paddle.getloc()
+    w, h = paddle.getpaddledetails()
+    if bx >= px and bx <= px + w and by == py:
+        return 1
+    return 0
+
+def collisionballboss(ball, window):
+     
+     
+    xvel , yvel = ball.getvel()
+    board = window.getboard()
+    xcor , ycor = ball.getloc()
+    
+    ixvel = xvel
+    iyvel = yvel
+    
+    xval = abs(xvel)
+    yval = abs(yvel)
+    
+    yval = int(yvel/yval)
+    xval = int(xvel/xval) 
+    
+    nycor = ycor + yval
+    nxcor = xcor + xval
+    
+    power = ball.getpower()
+    a = 0
+    b = 0
+    c = 0
+    
+    
+    if board[nycor][nxcor] != None and board[ycor][nxcor] != None and board[nycor][xcor] != None:
+        if board[nycor][nxcor].idtag == 'D' and board[ycor][nxcor].idtag == 'D' and board[nycor][xcor].idtag == 'D':
+            xvel = -xvel
+            yvel = -yvel
+            a = board[nycor][xcor].diewithahitboss(power)
+            # b = board[ycor][nxcor].diewithahitboss(power)
+            # c = board[nycor][nxcor].diewithahitboss(power)
+    elif board[ycor][nxcor] != None and board[nycor][xcor] != None:
+        if board[ycor][nxcor].idtag == 'D' and board[nycor][xcor].idtag == 'D':
+            xvel = -xvel
+            yvel = -yvel
+            a = board[ycor][nxcor].diewithahitboss(power)
+            # b =  board[nycor][xcor].diewithahitboss(power)
+    elif board[nycor][nxcor] != None and board[nycor][xcor] != None:
+        if board[nycor][nxcor].idtag == 'D' and board[nycor][xcor].idtag == 'D':
+            yvel = -yvel
+            a = board[nycor][nxcor].diewithahitboss(power)
+            # b = board[nycor][xcor].diewithahitboss(power)
+    elif board[nycor][nxcor] != None and board[ycor][xcor] != None:
+        if board[nycor][nxcor].idtag == 'D' and board[ycor][nxcor].idtag == 'D':
+            xvel = -xvel
+            a = board[nycor][nxcor].diewithahitboss(power)
+            # b = board[ycor][xcor].diewithahitboss(power)
+    elif board[nycor][nxcor] != None:
+        if board[nycor][nxcor].idtag == 'D':
+            xvel = -xvel
+            yvel = -yvel
+            a = board[nycor][nxcor].diewithahitboss(power)
+    elif board[ycor][nxcor] != None:
+        if board[ycor][nxcor].idtag == 'D':
+            xvel = -xvel
+            a = board[ycor][nxcor].diewithahitboss(power)
+    elif board[nycor][xcor] != None:
+        if board[nycor][xcor].idtag == 'D':
+            yvel = -yvel
+            a = board[nycor][xcor].diewithahitboss(power)
+     
+    if power == 0:    
+        ball.setvel( xvel, yvel)
+    
+    if b > a:
+        a = b
+          
+    if xvel != ixvel or yvel != iyvel :
+        return a
+    
+    if abs(xvel) > 1:
+        nycor = nycor + yval
+        nxcor = nxcor + xval
+        
+    if board[nycor][nxcor] != None and board[ycor][nxcor] != None and board[nycor][xcor] != None:
+        if board[nycor][nxcor].idtag == 'D' and board[ycor][nxcor].idtag == 'D' and board[nycor][xcor].idtag == 'D':
+            xvel = -xvel
+            yvel = -yvel
+            a = board[nycor][nxcor].diewithahitboss(power)
+            # b = board[ycor][nxcor].diewithahitboss(power)
+            # c = board[nycor][xcor].diewithahitboss(power)
+    elif board[ycor][nxcor] != None and board[nycor][xcor] != None:
+        if board[ycor][nxcor].idtag == 'D' and board[nycor][xcor].idtag == 'D':
+            xvel = -xvel
+            yvel = -yvel
+            a = board[ycor][nxcor].diewithahitboss(power)
+            # b = board[nycor][xcor].diewithahitboss(power)
+    elif board[nycor][nxcor] != None and board[nycor][xcor] != None:
+        if board[nycor][nxcor].idtag == 'D' and board[nycor][xcor].idtag == 'D':
+            yvel = -yvel
+            a = board[nycor][nxcor].diewithahitboss(power)
+            # a = board[nycor][xcor].diewithahitboss(power)
+    elif board[nycor][nxcor] != None and board[ycor][xcor] != None:
+        if board[nycor][nxcor].idtag == 'D' and board[ycor][nxcor].idtag == 'D':
+            xvel = -xvel
+            a = board[nycor][nxcor].diewithahitboss(power)
+            # a = board[ycor][xcor].diewithahitboss(power)
+    elif board[nycor][nxcor] != None:
+        if board[nycor][nxcor].idtag == 'D':
+            xvel = -xvel
+            yvel = -yvel
+            a = board[nycor][nxcor].diewithahitboss(power)
+    elif board[ycor][nxcor] != None:
+        if board[ycor][nxcor].idtag == 'D':
+            xvel = -xvel
+            a = board[ycor][nxcor].diewithahitboss(power)
+    elif board[nycor][xcor] != None:
+        if board[nycor][xcor].idtag == 'D':
+            yvel = -yvel
+            a = board[nycor][xcor].diewithahitboss(power)
+    
+    
+    if power == 0:    
+        ball.setvel( xvel, yvel)
+    
+    if b > a :
+        a = b
+    
+    
+    
+    if xvel == ixvel and yvel == iyvel :
+        return 0
+    else :
+        return a

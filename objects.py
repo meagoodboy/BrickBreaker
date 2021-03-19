@@ -169,3 +169,31 @@ class Powerupimg(Objects):
     
     def powerupmovement(self):
         self.ycor = self.ycor + self.yvel
+        
+class Boss(Objects):
+    def __init__(self, xcor, ycor, health, xvel = 0, yvel = 0, colour = Fore.WHITE, sprite = "0", idtag = 'D'):
+        super().__init__(xcor, ycor, xvel, yvel, sprite, colour, idtag)
+        self.health = health
+    
+    def diewithahitboss(self, power):
+        if self.health == 0:
+            pass
+        else:
+            self.health  = self.health - 1
+        return 1
+    
+    def bossmovement(self, px):
+        if self.xcor < px + 4:
+            self.xcor = self.xcor + 1
+        if self.xcor > px + 4:
+            self.xcor = self.xcor - 1
+            
+class Bossbullet(Objects):
+    def __init__(self, xcor, ycor,sprite = "⬤", colour = Fore.WHITE, xvel = 0, yvel = 1):
+        super().__init__(xcor, ycor, xvel, yvel, sprite, colour)
+        
+    def bulletmovement(self):
+        self.ycor = self.ycor + self.yvel
+        if self.ycor > 35:
+            return 1
+        return 0

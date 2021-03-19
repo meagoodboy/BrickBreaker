@@ -124,6 +124,19 @@ def level3ini(window):
     
     return bricklist
 
+def level4ini(window):
+    bricklist = []
+    
+    bricklist.append(Brick(22, 10,14,4))
+    bricklist.append(Brick(21, 19,14,4))
+    bricklist.append(Brick(20, 28,14,4))
+    bricklist.append(Brick(25, 100,14,4))
+    bricklist.append(Brick(26, 109,14,4))
+    bricklist.append(Brick(27, 118,14,4))
+    
+    printallbricks(window, bricklist)
+    
+    return bricklist
 
 def checklevelover(bricks):
     for i in bricks:
